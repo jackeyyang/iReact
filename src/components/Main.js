@@ -16,21 +16,45 @@ imageDatas = (function genImageURL(imageDatasArr) {
 	}
 	return imageDatasArr;
 })(imageDatas);
-
 console.log(imageDatas);
 
+// 单幅图片的组件
+class ImgFigure extends React.Component {
+	render(){
+		return (
+			<figure>
+				<img src={this.props.data.imageURL} 
+					 alt={this.props.data.title}
+				/>
+				<figcaption>
+					<h2>{this.props.data.title}</h2>
+				</figcaption>
+			</figure>
+		);
+	}
+}
+// 单幅图件的组件 end
+
 class AppComponent extends React.Component {
-  render() {
-    return (
-    	<section className="stage">
-    		<section className="img-sec">
-    			Garry
-    		</section>
-    		<nav className="controller-nav">
-    		</nav>
-    	</section>
-    );
-  }
+
+	render() {
+		var controllerUnits = [],
+		imgFigures = [];
+
+		imageDatas.forEach(function(value,index){
+			imgFigures.push(<ImgFigure data={value} key={index} />);
+		});
+
+		return (
+			<section className="stage">
+				<section className="img-sec">
+					{imgFigures}
+				</section>
+				<nav className="controller-nav">
+				</nav>
+			</section>
+		);
+	}
 }
 
 AppComponent.defaultProps = {
