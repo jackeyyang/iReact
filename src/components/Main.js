@@ -30,7 +30,7 @@ imageDatas = (function genImageURL(imageDatasArr) {
 	}
 	return imageDatasArr;
 })(imageDatas);
-console.log(imageDatas);
+
 
 // 控制组件
 class ControllerUnit extends React.Component {
@@ -108,7 +108,7 @@ class ImgFigure extends React.Component {
 			imgFigureClassName += this.props.arrange.isInverse ? ' is-inverse' : '';
 
 		return (
-			<figure className={imgFigureClassName} style={styleObj} onClick={this.handleClick}>
+			<figure className={imgFigureClassName} style={styleObj} data-index={this.props.indexArray} onClick={this.handleClick}>
 				<img src={this.props.data.imageURL}
 					 alt={this.props.data.title}
 				/>
@@ -166,7 +166,6 @@ class AppComponent extends React.Component {
 		return function(){
 			var imgsArrangeArr = this.state.imgsArrangeArr;
 			imgsArrangeArr[index].isInverse = !imgsArrangeArr[index].isInverse;
-			console.log(1);
 			this.setState({
 				imgsArrangeArr: imgsArrangeArr
 			});
@@ -194,7 +193,7 @@ class AppComponent extends React.Component {
 			vPosRangeTopY = vPosRange.topY,
 
 			imgsArrangeTopArr = [], // 上部图片的状态信息
-			topImgNum = Math.ceil(Math.random()*2), // 上部图片放多少张
+			topImgNum = Math.floor(Math.random()*2), // 上部图片放多少张
 			topImgSpliceIndex = 0, // 上部图片图片的index值为0
 			imgsArrangeCenterArr = imgsArrangeArr.splice(centerIndex,1); // 中心图片
 
@@ -207,7 +206,7 @@ class AppComponent extends React.Component {
 			};
 
 			// 取出上侧图片的状态信息
-			topImgSpliceIndex = Math.ceil(Math.random() * (imgsArrangeArr.length - topImgNum)); // 随机选择上部选图片
+			topImgSpliceIndex = Math.floor(Math.random() * (imgsArrangeArr.length - topImgNum)); // 随机选择上部选图片
 			imgsArrangeTopArr = imgsArrangeArr.splice(topImgSpliceIndex,topImgNum);
 
 			// 布局上侧图片
@@ -318,6 +317,7 @@ class AppComponent extends React.Component {
 			imgFigures.push(
 				<ImgFigure data={value} 
 							key={index} 
+							indexArray = {index}
 							ref={'imgFigure' + index} 
 							arrange={this.state.imgsArrangeArr[index]} 
 							inverse = {this.inverse(index)}
