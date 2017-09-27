@@ -1,2 +1,2 @@
-# iReact
-react demo
+# iReact -- a gallery by react
+Preview
